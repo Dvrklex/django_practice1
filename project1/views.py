@@ -1,5 +1,11 @@
 from django.http import HttpResponse
-from django.template import Template, Context, loader
+from django.template import Template, Context
+
+#Se puede importar asi from django.template import loader
+#Sintaxis: loader.get_template()
+#Importando asi, evitas usar el loader y simplemente usas get_template
+#Sintaxis: get_template()
+from django.template.loader import get_template
 import datetime
 
 class Persona (object):
@@ -15,7 +21,7 @@ def saludo(request): #Cargo primera plantilla/template
     fecha_actual = datetime.datetime.now()
     
     #Cargo el template con loader 
-    template_loader = loader.get_template('saludo.html')
+    template_loader = get_template('saludo.html')
     
     #Importar de pecho el template
     #doc_externo = open('project1/templates/saludo.html')
@@ -46,7 +52,7 @@ def lista(request):
     fecha_actual = datetime.datetime.now()    
     lista_temas = ['Introduccion','Parte 1', 'Parte 2', 'Parte 3', 'Parte 4', 'Final']
    
-    plt = loader.get_template('lista.html')
+    plt = get_template('lista.html')
     
     documento = plt.render({
         'fecha_actual':fecha_actual,
