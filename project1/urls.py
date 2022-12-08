@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from project1.views import saludo
+from project1.views import saludo,lista,fecha,calculaEdad
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo/', saludo),
+    path('lista/', lista),
+    path('fecha/', fecha),
+    #Agrego a la url que lleva un parametro
+    #Para pasar 2 parametros en la ruta es asi: edades/18/2222
+    path('edades/<int:edad>/<int:agno>', calculaEdad), # el int:agno lo convierte a entero
 ]
