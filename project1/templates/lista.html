@@ -1,17 +1,22 @@
 <html>
+   
     <body>
-        <h1>
-            Hola esta es la primera plantilla con Django
+        <h1 style="text-align:center">
+            Probando Lista y demas
             <br>
             Fecha: {{fecha_actual.day}}/{{fecha_actual.month}}/{{fecha_actual.year}}
         <h1/>
         <p>
-            Nombre: {{nombre_persona}} <br>
-            Apellido: {{apellido_persona}} <br>
-            Edad: {{edad_persona}} 
-        </p>
-        <p>
-            Lista de temas: {{temas}}
+            <strong>Lista de temas:</strong>
+            <ul>
+                {% if temas %}
+                    {% for tema in temas %}
+                        <li>{{tema}}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>No hay temas</li>
+                {% endif %}
+            </ul>
             
         </p>
     <body/>

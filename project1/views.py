@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.template import Template, Context
+from django.template import Template, Context, loader
 import datetime
 
 class Persona (object):
@@ -13,15 +13,20 @@ def saludo(request): #Cargo primera plantilla/template
     # apellido = 'Sosa'
     persona = Persona('Alfredo', 'Gomez')
     fecha_actual = datetime.datetime.now()
-    doc_externo = open('project1/templates/saludo.html')
+    
+    #Cargo el template con loader 
+    template_loader = loader.get_template('saludo.html')
+    
+    #Importar de pecho el template
+    #doc_externo = open('project1/templates/saludo.html')
     
     #Almaceno el contenido de la plantilla html 
-    plt = Template(doc_externo.read())
+    # plt = Template(doc_externo.read())
     
-    doc_externo.close()
+    #doc_externo.close()
     
     #Creo el contexto
-    contexto = Context({
+    contexto = Context({ #Si al template lo cargue con un loader puedo precindir de la variable contexto y para en render el dic 
         'nombre_persona':persona.nombre,
         'apellido_persona':persona.apellido, 
         'edad_persona':18, 
@@ -29,32 +34,24 @@ def saludo(request): #Cargo primera plantilla/template
         })
     
     #Renderizo el documento hmtl
-    documento = plt.render(contexto)
-    return HttpResponse(documento) # Create your views here.
-
-def lista(request):
-    
-    persona = Persona('Alfredo', 'Gomez')
-    fecha_actual = datetime.datetime.now()
-    doc_externo = open('project1/templates/lista.html')
-    
-    lista_temas = ['Introduccion','Parte 1', 'Parte 2', 'Parte 3', 'Parte 4', 'Final']
-    #Almaceno el contenido de la plantilla html 
-    plt = Template(doc_externo.read())
-    
-    doc_externo.close()
-    
-    #Creo el contexto
-    contexto = Context({
+    documento = template_loader.render({ #paso el diccionario como parametro
         'nombre_persona':persona.nombre,
         'apellido_persona':persona.apellido, 
         'edad_persona':18, 
+        'fecha_actual':fecha_actual
+        })
+    return HttpResponse(documento) # Create your views here.
+
+def lista(request):   
+    fecha_actual = datetime.datetime.now()    
+    lista_temas = ['Introduccion','Parte 1', 'Parte 2', 'Parte 3', 'Parte 4', 'Final']
+   
+    plt = loader.get_template('lista.html')
+    
+    documento = plt.render({
         'fecha_actual':fecha_actual,
         'temas': lista_temas,
         })
-    
-    #Renderizo el documento hmtl
-    documento = plt.render(contexto)
     return HttpResponse(documento) # Create your views here.
 
 

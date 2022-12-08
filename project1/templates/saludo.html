@@ -5,7 +5,17 @@
             <br>
             Fecha: {{fecha_actual.day}}/{{fecha_actual.month}}/{{fecha_actual.year}}
         <h1/>
+        {% if nombre_persona == 'Alfredo' %} 
+            <p>
+                Bienvenido {{nombre_persona}}
+            </p>
+        {% else %}
+            <p>
+                Bienvenido extraño
+            </p>
+        {% endif %}
         <p>
+            <!-- Nombre: {{nombre_persona|upper}} <br> el simbolo | sirve para ejecutar un filtro-->
             Nombre: {{nombre_persona}} <br>
             Apellido: {{apellido_persona}} <br>
             Edad: {{edad_persona}} 
