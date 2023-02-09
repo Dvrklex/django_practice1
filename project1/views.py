@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import Template, Context
-
+from django.shortcuts import render 
 #Se puede importar asi from django.template import loader
 #Sintaxis: loader.get_template()
 #Importando asi, evitas usar el loader y simplemente usas get_template
@@ -12,6 +12,8 @@ class Persona (object):
     def __init__ (self, nombre, apellido):
         self.nombre = nombre
         self.apellido = apellido
+
+
 
 def saludo(request): #Cargo primera plantilla/template
     #Creo una variable para pasarla a la platilla/template  
@@ -46,7 +48,7 @@ def saludo(request): #Cargo primera plantilla/template
         'edad_persona':18, 
         'fecha_actual':fecha_actual
         })
-    return HttpResponse(documento) # Create your views here.
+    return render(request, "saludo.html", {'nombre_persona':persona.nombre,'apellido_persona':persona.apellido,'edad_persona':18,'fecha_actual':fecha_actual}) # Create your views here.
 
 def lista(request):   
     fecha_actual = datetime.datetime.now()    
@@ -90,3 +92,13 @@ def calculaEdad(request,edad, agno): #El parametro agno se pasa como valor en la
         </body>
     </html>''' % (agno, edadFutura)
     return HttpResponse(documento)
+
+
+# Herencia de plantillas
+def cambiante_uno(request):
+    fecha_actual = datetime.datetime.now()
+    return render(request,"herencias/cambiante1.html", {"fecha_actual":fecha_actual})
+
+def cambiante_dos(request):
+    fecha_actual = datetime.datetime.now()
+    return render(request,"herencias/cambiante2.html", {"fecha_actual":fecha_actual})

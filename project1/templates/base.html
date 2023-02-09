@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>
+            {% block title %} {% endblock %}
+        </title>
+    </head>
+
+
+    <body>
+        <!-- Esto se va a mantener en las plantillas hijas -->
+        <h1> Titulo de la plantilla base/padre</h1>
+        {% include 'superior/barra.html' %}
+
+        <h3> Subtitulo </h3>
+
+        <!-- Aca comienza la zona cambiante -->
+        {% block content %} {% endblock %} <!-- Esto es lo que va a cambiar en las plantillas hijas -->
+
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </body>
+</html>
